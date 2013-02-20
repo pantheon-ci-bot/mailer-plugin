@@ -66,6 +66,7 @@ import java.util.regex.Pattern;
  *
  * @author Kohsuke Kawaguchi
  * @since 1.192
+ * @see <a href="https://wiki.jenkins-ci.org/display/JENKINS/Mail+address+resolution">Mail address resolution</a>
  */
 public abstract class MailAddressResolver implements ExtensionPoint {
     /**
