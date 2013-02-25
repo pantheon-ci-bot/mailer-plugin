@@ -62,11 +62,27 @@ import java.util.regex.Pattern;
  * So the common technique for a mail address resolution is to define your own {@link UserProperty} types and
  * add it to {@link User} objects where more context is available. For example, an {@link SCM} implementation
  * can have a lot more information about a particular user during a check out, so that would be a good place
- * to capture information as {@link UserProperty}, which then later used by a {@link MailAddressResolver}. 
+ * to capture information as {@link UserProperty}, which then later used by a {@link MailAddressResolver}.
+ *
+ * <h2>Performance considerations</h2>
+ * <p>
+ * Mail address resolution is a potentially time consuming process. It can considerably slow down operations
+ * relaying on mail address resolution, especially on Jenkins instances having registered several resolvers.
+ *
+ * <p>
+ * Plugin developers are strongly encouraged not to incorporate resolvers into their plugins, provided it is
+ * not the entire responsibility of the plugin. Preferred solution is creating two plugins, one for
+ * {@link MailAddressResolver} implementation and one for the rest. Resolver plugin is allowed to depend on
+ * original plugin, however, not the other way around. This allows Jenkins administrator to decide whether
+ * to use or not to use the resolver independently from using plugin itself. Existing plugins was
+ * <a href="https://issues.jenkins-ci.org/browse/JENKINS-16437">modified</a> to meet this criteria.
+ *
+ * <p>
+ * Preferred  naming scheme is <tt><i>pluginname</i>-plugin</tt> for plugin and
+ * <tt><i>pluginname</i>-mail-address-resolver-plugin</tt> for the resolver part.
  *
  * @author Kohsuke Kawaguchi
  * @since 1.192
- * @see <a href="https://wiki.jenkins-ci.org/display/JENKINS/Mail+address+resolution">Mail address resolution</a>
  */
 public abstract class MailAddressResolver implements ExtensionPoint {
     /**
