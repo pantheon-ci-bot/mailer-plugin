@@ -154,6 +154,18 @@ public class MailSender {
             return createFailureMail(build, listener);
         }
 
+        // Calling findPreviousBuildResult can result in preventing jobs from finishing.
+        // Example: 'job' is configured with concurrency of 4 and 4 jobs are queued. If the first
+        // job to be started takes 10 minutes to execute but the following 3 only take 1 minute, they
+        // will be blocked and not finish properly until the first job finishes. This is not acceptable
+        // for our use case.
+        //
+        // The easiest way to fix this is to eliminate the calls to findPreviousBuildResult
+        // which manes losing the 'do not notify on every unstable build' feature as well as losing the
+        // 'job status has returned to normal' when a successful build follows a failed build. We don't need
+        // either of these. -joe 3/19/2013
+
+        /*
         if (build.getResult() == Result.UNSTABLE) {
             if (!dontNotifyEveryUnstableBuild)
                 return createUnstableMail(build, listener);
@@ -169,6 +181,7 @@ public class MailSender {
             if (prev == Result.UNSTABLE)
                 return createBackToNormalMail(build, Messages.MailSender_BackToNormal_Stable(), listener);
         }
+        */
 
         return null;
     }
