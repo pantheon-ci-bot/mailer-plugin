@@ -12,6 +12,6 @@ Execute `mvn hpi:run`. This will compile the plugin and launch a Jenkins instanc
 
 ### Create Package (.hpi):
 
-Execute `mvn hpi:hpi`. This will create `throttle-concurrent.hpi` in the `target/` directory
+Execute `mvn hpi:hpi`. This will create `mailer.hpi` in the `target/` directory. Rename to `mailer.jpi`
 
 For other mvn targets, see: https://jenkins-ci.org/maven-hpi-plugin/
