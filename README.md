@@ -1,6 +1,8 @@
 mailer-plugin
 =============
 
+[![Deprecated](https://img.shields.io/badge/Pantheon-Deprecated-yellow?logo=pantheon&color=FFDC28)](https://pantheon.io/docs/oss-support-levels#deprecated)
+
 Breakout of the default Mailer from the Jenkins core.
 
 Contributing
